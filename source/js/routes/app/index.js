@@ -7,11 +7,10 @@ import Routes from '../index';
 
 // STYLED COMPONENTS
 const Body = styled.div`
-  ${ props => (props.lock ? `
     height: 100vh;
     width: 100%;
+    padding: 20px;
     overflow: hidden;
-  ` : '') }
 `;
 
 class App extends Component {
@@ -23,7 +22,7 @@ class App extends Component {
 
   render() {
     return (
-      <Body className='App' lock={ 0 }>
+      <Body className='App'>
         <Helmet titleTemplate='%s | Salo Creative' />
         { Routes(this.props) }
       </Body>

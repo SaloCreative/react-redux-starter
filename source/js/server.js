@@ -27,7 +27,10 @@ const port = 8080;
 app.use('/client', express.static('build/client'));
 app.use(i18nMiddleware.handle(i18n));
 
-app.use((req, res) => {
+app.use((req, res, next) => {
+  if (req.path.includes('/client/locales')) {
+    next();
+  }
   // Creates empty store for each request
   const store = configureStore();
   // Perform pre-fetches
@@ -43,17 +46,19 @@ app.use((req, res) => {
     }
   });
   const promises = branch.map(({ route }) => {
-    if (route.component && route.component.getInitialProps) {
+    if (route.component && route.component.getInitialProps && route.path !== '*') {
       const getInitialProps = route.component.getInitialProps;
       const authToken = getToken(req);
-      return getInitialProps instanceof Function && country ? getInitialProps(store, country, authToken) : Promise.resolve(null);
+      if (getInitialProps instanceof Function && country) {
+        return getInitialProps(store, country, authToken);
+      }
     }
     return Promise.resolve(null);
   });
   // Handle locales
   const i18nServer = i18n.cloneInstance();
   i18nServer.changeLanguage(locale);
-  return Promise.all(promises).then(setTimeout(() => { // Timeout to account for async store update
+  return Promise.all(promises).then(() => {
     // Dehydrates the state
     const dehydratedState = JSON.stringify(store.getState());
 
@@ -80,7 +85,7 @@ app.use((req, res) => {
     // We're good, send the response
       res.status(context.status || 200).send(serverHtml);
     }
-  }, 500));
+  });
 
   // TODO how to handle 50x errors?
 });

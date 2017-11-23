@@ -5,10 +5,12 @@ import { connect } from 'react-redux';
 import App from '../../routes/app';
 
 // ACTION CREATORS
+import * as testActions from '../../actions/test';
 
 // STATE MAP
 function mapStateToProps(state) {
   return {
+    test: state.test
   };
 }
 
@@ -17,7 +19,7 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     Object.assign(
       {},
-      null
+      testActions
     ), dispatch);
 }
 

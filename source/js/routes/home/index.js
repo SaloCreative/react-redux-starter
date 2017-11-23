@@ -9,6 +9,15 @@ import Page from '../../hoc/page';
 // COMPONENTS
 
 class Home extends Component {
+  componentDidMount() {
+    this.props.testFetch();
+  }
+
+  renderContent() {
+    const { test } = this.props;
+    return null;
+  }
+  
   render() {
     const { t } = this.props;
     return ([
@@ -17,6 +26,7 @@ class Home extends Component {
       </Helmet>,
       <div key='page'>
         { t('HOME') }
+        { this.renderContent() }
       </div>
     ]);
   }
