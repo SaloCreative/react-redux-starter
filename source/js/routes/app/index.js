@@ -7,10 +7,8 @@ import Routes from '../index';
 
 // STYLED COMPONENTS
 const Body = styled.div`
-    height: 100vh;
     width: 100%;
     padding: 20px;
-    overflow: hidden;
 `;
 
 class App extends Component {

@@ -7,6 +7,7 @@ import { translate } from 'react-i18next';
 import Page from '../../hoc/page';
 import { testFetch } from '../../actions/test';
 import { usersFetch } from '../../actions/users';
+import { photosFetch } from '../../actions/photos';
 
 // COMPONENTS
 
@@ -14,7 +15,8 @@ class Home extends Component {
   static getInitialProps(store) {
     return Promise.all([
       store.dispatch(testFetch()),
-      store.dispatch(usersFetch())
+      store.dispatch(usersFetch()),
+      store.dispatch(photosFetch())
     ]);
   }
   
@@ -35,6 +37,40 @@ class Home extends Component {
   loadedUsers() {
     const { users } = this.props;
     return !users.fetching && !users.error && users.data.length;
+  }
+
+  loadedPhotos() {
+    const { photos } = this.props;
+    return !photos.fetching && !photos.error && photos.data.length;
+  }
+
+  renderPhotos() {
+    const { photos } = this.props;
+    if (this.loadedPhotos()) {
+      return (
+        <table width='100%'>
+          <thead>
+            <tr>
+              <th>id</th>
+              <th>title</th>
+              <th>url</th>
+            </tr>
+          </thead>
+          <tbody>
+            { photos.data.map((photo) => {
+              return (
+                <tr key={ photo.id }>
+                  <td>{ photo.id }</td>
+                  <td>{ photo.title }</td>
+                  <td>{ photo.url }</td>
+                </tr>
+              );
+            }) }
+          </tbody>
+        </table>
+      );
+    }
+    return <p>Fetching</p>;
   }
 
   renderContent() {
@@ -87,6 +123,7 @@ class Home extends Component {
         { t('HOME') }
         { this.renderContent() }
         { this.renderUsers() }
+        { this.renderPhotos() }
       </div>
     ]);
   }
@@ -97,7 +134,8 @@ Home.propTypes = {
   testFetch: PropTypes.func.isRequired,
   usersFetch: PropTypes.func.isRequired,
   test: PropTypes.object.isRequired,
-  users: PropTypes.object.isRequired
+  users: PropTypes.object.isRequired,
+  photos: PropTypes.object.isRequired
 };
 
 export default translate(['common'])(Page(Home));
