@@ -15,7 +15,7 @@ import getServerHtml from './config/server-html';
 import { getToken } from './helpers/server';
 import Server from './routes/app/server';
 import { routerConf } from './routes';
-import { languages } from './config/constants';
+import CONFIG from './config';
 
 // Load SCSS
 import '../scss/app.scss';
@@ -36,7 +36,7 @@ app.use((req, res) => {
   let country; // We need this to ensure the request matches on language
   branch.map(({ match }) => {
     if (match && match.params && Object.keys(match.params).length > 0) {
-      if (match.params.language && languages.indexOf(match.params.language) !== -1) {
+      if (match.params.language && CONFIG.languages.indexOf(match.params.language) !== -1) {
         locale = match.params.language;
         country = match.params.language;
       }

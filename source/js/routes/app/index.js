@@ -5,9 +5,6 @@ import styled from 'styled-components';
 // ROUTES
 import Routes from '../index';
 
-// HOC
-import { ScreenSize } from '../../hoc/screenSize';
-
 // STYLED COMPONENTS
 const Body = styled.div`
   ${ props => (props.lock ? `
@@ -26,11 +23,11 @@ class App extends Component {
 
   render() {
     return (
-      <Body className='App' lock={ bodyLock ? 1 : 0 }>
+      <Body className='App' lock={ 0 }>
         <Helmet titleTemplate='%s | Salo Creative' />
         { Routes(this.props) }
       </Body>
     );
   }
 }
-export default ScreenSize(App);
+export default App;

@@ -2,7 +2,7 @@ import i18n from 'i18next';
 import XHR from 'i18next-xhr-backend';
 import Cache from 'i18next-localstorage-cache';
 import LanguageDetector from 'i18next-browser-languagedetector';
-import { languages } from './config/constants';
+import CONFIG from './config';
 
 i18n
   .use(XHR)
@@ -24,7 +24,7 @@ i18n
 
     load: 'all',
 
-    lngWhitelist: languages,
+    lngWhitelist: CONFIG.languages,
 
     lowerCaseLng: true,
 

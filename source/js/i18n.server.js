@@ -1,13 +1,13 @@
 import i18n from 'i18next';
 import Backend from 'i18next-node-fs-backend';
 import { LanguageDetector } from 'i18next-express-middleware';
-import { languages } from './config/constants';
+import CONFIG from './config';
 
 i18n
   .use(Backend)
   .use(LanguageDetector)
   .init({
-    whitelist: languages,
+    whitelist: CONFIG.languages,
     wait: false,
     fallbackLng: 'en',
 

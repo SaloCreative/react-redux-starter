@@ -4,25 +4,26 @@ import { Helmet } from 'react-helmet';
 import { translate } from 'react-i18next';
 
 // HOC
-import Blanket from '../../hoc/blanket.ssr';
 import Page from '../../hoc/page';
 
 // COMPONENTS
 
 class Home extends Component {
   render() {
+    const { t } = this.props;
     return ([
       <Helmet key='helmet'>
-        <title>Home</title>
+        <title>{ t('HOME') }</title>
       </Helmet>,
       <div key='page'>
-        Home page
+        { t('HOME') }
       </div>
     ]);
   }
 }
 
 Home.propTypes = {
+  t: PropTypes.func.isRequired
 };
 
-export default translate(['common'])(Blanket(Page(Home)));
+export default translate(['common'])(Page(Home));

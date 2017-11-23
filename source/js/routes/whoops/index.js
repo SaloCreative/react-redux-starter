@@ -4,16 +4,9 @@ import { Helmet } from 'react-helmet';
 import PropTypes from 'prop-types';
 
 // HOC
-import Blanket from '../../hoc/blanket.ssr';
 import Page from '../../hoc/page';
 
 class NotFound extends Component {
-  static propTypes = {
-    location: PropTypes.object.isRequired,
-    login: PropTypes.object.isRequired,
-    t: PropTypes.func.isRequired
-  }
-
   render() {
     const { t } = this.props;
 
@@ -22,16 +15,18 @@ class NotFound extends Component {
         <title>{t('WHOOPS')}</title>
       </Helmet>,
       <div key='page' className='error-message'>
-        <Container>
-          <div className='error-message__container'>
-            <a onClick={ () => history.go(-1) } role='button' tabIndex='-1'><Icon icon='long-arrow-left' size='24px' /></a>
-            <h2 className='error-message__title'>{t('WHOOPS_TITLE')}</h2>
-            <p className='error-message__text'>{t('WHOOPS_TEXT')}</p>
-          </div>
-        </Container>
+        <div className='error-message__container'>
+          <a onClick={ () => history.go(-1) } role='button' tabIndex='-1'>Back</a>
+          <h2 className='error-message__title'>{t('WHOOPS_TITLE')}</h2>
+          <p className='error-message__text'>{t('WHOOPS_TEXT')}</p>
+        </div>
       </div>
     ]);
   }
 }
 
-export default translate(['common'])(Blanket(Page(NotFound)));
+NotFound.propTypes = {
+  t: PropTypes.func.isRequired
+};
+
+export default translate(['common'])(Page(NotFound));
