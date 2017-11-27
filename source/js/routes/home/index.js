@@ -11,7 +11,14 @@ import { usersFetch } from '../../actions/users';
 // COMPONENTS
 
 class Home extends Component {
-  static getInitialProps(store) {
+  /**
+   * @static getInitialProps
+   * @param { object } token - passes back authtoken if present as a cookie  for use in actions;
+   * @param { object } match - passes any matched params from the router back (e.g. language);
+   * @param store - passes in an instance of the redux store for dispatch & reducers
+   * @returns Promise - returns a promise for server render
+   */
+  static getInitialProps(store, match, token) {
     return Promise.all([
       store.dispatch(testFetch()),
       store.dispatch(usersFetch())
