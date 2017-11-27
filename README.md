@@ -11,6 +11,12 @@ Having worked on a number of React-Redux apps recently that require localisation
 * Server side fetches
 * Multi-lingual and translatable
 
+# Contents
+
+* [Setup](#setup)
+	* [Development](#development) 
+	* [Build](#build) 
+
 # Setup
 
 first of all clone down the repo and then run `yarn` to pull in all the dependencies
@@ -60,7 +66,19 @@ and then just serve `index.html` from the build folder and voila your applicatio
 
 ### Server Side / Universal build
 
-A client side application is all well and good but for any application that needs to be accessible, shareable or SEO friendly then we need to be able to pre-fetch data on the server side before we render the application. 
+The server build also relies on the client undles but creates a lightweight node/express app that handles initial requests so we can perform pre-fetches etc. To build the app simply run:
+
+```
+$ npm run universal:build
+```
+
+Now we need to run the server.js in the build folder through node as per
+
+```
+$ node build/server.js
+```
+Currently this will run the application. in production mode on port 8080
+
 
 ## All npm tasks
 
