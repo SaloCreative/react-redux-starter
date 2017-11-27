@@ -7,7 +7,6 @@ import { translate } from 'react-i18next';
 import Page from '../../hoc/page';
 import { testFetch } from '../../actions/test';
 import { usersFetch } from '../../actions/users';
-import { photosFetch } from '../../actions/photos';
 
 // COMPONENTS
 
@@ -15,8 +14,7 @@ class Home extends Component {
   static getInitialProps(store) {
     return Promise.all([
       store.dispatch(testFetch()),
-      store.dispatch(usersFetch()),
-      store.dispatch(photosFetch())
+      store.dispatch(usersFetch())
     ]);
   }
   
@@ -99,8 +97,7 @@ Home.propTypes = {
   testFetch: PropTypes.func.isRequired,
   usersFetch: PropTypes.func.isRequired,
   test: PropTypes.object.isRequired,
-  users: PropTypes.object.isRequired,
-  photos: PropTypes.object.isRequired
+  users: PropTypes.object.isRequired
 };
 
 export default translate(['common'])(Page(Home));
