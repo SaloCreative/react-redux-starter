@@ -15,7 +15,13 @@ Having worked on a number of React-Redux apps recently that require localisation
 
 * [Setup](#setup)
 	* [Development](#development) 
-	* [Build](#build) 
+	* [Build](#build)
+	* [npm tasks](#all-npm-tasks)
+* [Server side fetching](server-side-fetching)
+	* [getInitialProps()](getInitialProps)
+	* [componentDidMount()](componentDidMount)
+* [Credit](#credit)
+	* [Contributors](#contributors)
 
 # Setup
 
@@ -90,6 +96,51 @@ Currently this will run the application. in production mode on port 8080
 * `universal:build` - builds both server and client for `production` environment
 
 there are additional tasks that are run as part of build and dev tasks but these should not be run in isolation. There are also 2 aliases currently in place for legacy build tasks
+
+# Server side fetching
+
+## getInitialProps()
+
+In order to perform the server side fetches I have stolen the approach utilised by next.js. Available in the top level route components (home, 404 etc) you can call `getInitialProps` as a static method. This method is picked up in the express application and passes down some context to enable fetches to be made and update the redux store on the server side pre-render.
+
+```
+class MyClass extends Component {
+
+	static getInitialProps(store, match, token) {
+	    return Promise.all([
+	      store.dispatch(testFetch()),
+	      store.dispatch(usersFetch())
+	    ]);
+	  }
+	  
+	  // The rest of my class...
+}
+```
+In the `getInitialProps` method the express app will pass in an instance of the store so we can dispatch actions directly as if we were using the client methods meaning we can use the same action creators for both the server and the client. It also means that each route can manage its own fetches rather than having to edit and fiddle around in the express application each time a new route is added. We need to use store in all dispatches but the server also makes the follwoing values available:
+
+* `match` - this is an object containing any paramaters that are in the route for dynamic routing (e.g. language, id etc)
+* `token` - this is a custom object containg an object with a `JWT` key that contains a JSON Web Token for authorised requests. This looks for a cookie named `authToken` but this can be edited in `source/js/helpers/server.js` to use whatever cookie or keys you need or just ignored if not applicable to your application
+
+You will notice that the getInitialProps returns an array of promises which is important to ensure that the render is held until all required async actions are resolved before the html is returned to the client. Without this promise the dispatches will be made but the view rendered before they resolve
+
+## componentDidMount()
+
+As you change routes the subsequent requests are made on the client side so you need to make sure that any data that should be fetched in `getInitialProps` is validated in `componentDidMount` (componentWillMount runs on the server so no use in this instance) as well to ensure the application works in all instances e.g.
+
+```
+class MyClass extends Component {
+
+	// getInitialProps code
+	
+	componentDidMount() {
+		const { users } = this.props;
+		if (!users.fetching && !users.error && users.data.length) {
+			this.props.usersFetch();
+		}
+	}
+}
+```
+
 
 
 # Credit
