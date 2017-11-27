@@ -161,8 +161,11 @@ Implemented but to document...
 - [ ] Add example of language fetches
 - [ ] Add an about route
 - [ ] Implement an error boundary
-- [ ] Implement @salocreative/react-redux-alerts example
+- [ ] Implement `@salocreative/react-redux-alerts example`
 - [ ] Implement Loading wrapper
+- [ ] Document actions approach
+- [ ] Flesh out auth example
+- [ ] Upgrade `react-redux-middleware`
 
 
 # Credit
