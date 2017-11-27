@@ -1,3 +1,16 @@
+# Introduction
+
+A simple **S**ingle **P**age **A**pplication (SPA) relies on fetching and rendering all the data on the client side. For some applications this is fine, especially hobby projects, but for any application that needs to be accessible, shareable or SEO friendly then we need to be able to pre-fetch data on the server side and render a fully formed view without loading the app first. 
+
+Having worked on a number of React-Redux apps recently that require localisations, server side rendering and pre-fetches I have put together this project with the following aims:
+
+* React-Redux based application
+* Utilising React Router 4
+* Middleware/Auth handling
+* A universally rendered application
+* Server side fetches
+* Multi-lingual and translatable
+
 # Setup
 
 first of all clone down the repo and then run `yarn` to pull in all the dependencies
@@ -12,41 +25,42 @@ There are two development environments for this application.
 
 ### Client development
 
-First there is a basic develoment mode that hot reloads the client application. This can be started by simply running 
+There is a basic develoment mode that hot reloads the client application with no need for refreshing and does not utilise any of the server side code. This can be started by simply running 
 
 ```
 $ npm start
 ```
 
-Visit `http://localhost:8001/` from your browser of choice.
+and then visiting `http://localhost:8001/` from your browser of choice.
 
 ### Universal development
+
+Universal development allows for development on both the client and server application concurrently with watch tasks to rebuild the files. Hot reload will not work, so you need to refresh the page manually after changing the code
 
 ```
 $ npm run universal:dev
 ```
 
-Visit `http://localhost:8080/` from your browser of choice.
+and then visit `http://localhost:8080/` from your browser of choice.
 
 
+## Build
 
-## Build (production)
+Build will be placed in the `build` folder. As with the development mode there are two build processes, one for client only and one for a server side rendered application. 
 
-Build will be placed in the `build` folder.
+### Client
 
-```
-$ npm run build
-```
-
-## Running in preview production mode
-
-This command will start webpack dev server, but with `NODE_ENV` set to `production`.
-Everything will be minified and served.
-Hot reload will not work, so you need to refresh the page manually after changing the code.
+For a simple client only build you can run
 
 ```
-npm run preview
+$ npm run client:build
 ```
+
+and then just serve `index.html` from the build folder and voila your application is minified and running in production. No need for a node process or anything clever
+
+### Server Side / Universal build
+
+A client side application is all well and good but for any application that needs to be accessible, shareable or SEO friendly then we need to be able to pre-fetch data on the server side before we render the application. 
 
 ## All npm tasks
 
