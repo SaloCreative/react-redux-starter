@@ -1,13 +1,32 @@
-# Introduction
+# Contents
+
+* [Setup](#setup)
+	* [Development](#development) 
+	* [Build](#build)
+	* [npm tasks](#all-npm-tasks)
+* [Server side fetching](#server-side-fetching)
+	* [getInitialProps()](#getinitialprops)
+	* [componentDidMount()](#componentdidmount)
+* [Credit](#credit)
+	* [Contributors](#contributors)
+* [License](#license)
+
+	
+# Introduction 
 
 A simple **S**ingle **P**age **A**pplication (SPA) relies on fetching and rendering all the data on the client side. For some applications this is fine, especially hobby projects, but for any application that needs to be accessible, shareable or SEO friendly then we need to be able to pre-fetch data on the server side and render a fully formed view without loading the app first. 
 
-Having worked on a number of React-Redux apps recently that require localisations, server side rendering and pre-fetches I have put together this project with the following aims:
+Having worked on a number of React-Redux apps recently that require localisations, server side rendering and pre-fetches I have put together this project. I have deliberately avoided things such as razzle and next.js so as to retian full control of the process and not become tied into these libraries ways of structuring applications, routing and auth handling.
+
+The main features are: 
 
 * React-Redux based application
-* Utilising React Router 4
+* reducers (redux)
+* actions (async)
+* SASS (with autoprefixer)
+* React Router 4
 * Middleware/Auth handling
-* A universally rendered application
+* Universal rendering
 * Server side fetches
 * Multi-lingual and translatable
 
@@ -17,9 +36,11 @@ Having worked on a number of React-Redux apps recently that require localisation
 	* [Development](#development) 
 	* [Build](#build)
 	* [npm tasks](#all-npm-tasks)
-* [Server side fetching](server-side-fetching)
-	* [getInitialProps()](getInitialProps)
-	* [componentDidMount()](componentDidMount)
+* [Server side fetching](#server-side-fetching)
+	* [getInitialProps()](#getinitialprops)
+	* [componentDidMount()](#componentdidmount)
+* [Internationalisation](#internationalisation)
+* [Todo](#todo)
 * [Credit](#credit)
 	* [Contributors](#contributors)
 
@@ -141,6 +162,19 @@ class MyClass extends Component {
 }
 ```
 
+# Internationalisation
+
+Implemented but to document...
+
+# Todo
+
+- [ ] Document internationalisation
+- [ ] Add a language switcher
+- [ ] Add example of language fetches
+- [ ] Add an about route
+- [ ] Implement an error boundary
+- [ ] Implement @salocreative/react-redux-alerts example
+- [ ] Implement Loading wrapper
 
 
 # Credit
@@ -152,3 +186,7 @@ Thanks to [Work & Co](https://github.com/workco/marvin) for the starting point f
 * [Work & Co](https://github.com/worko)
 * [James Bliss](https://github.com/jamesbliss)
 * [Tim Stone](https://github.com/fetimo)
+
+# License
+
+[MIT License](https://github.com/SaloCreative/react-redux-starter/blob/master/LICENSE)
