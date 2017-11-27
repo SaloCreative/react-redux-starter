@@ -60,7 +60,7 @@ npm run preview
 there are additional tasks that are run as part of build and dev tasks but these should not be run in isolation. There are also 2 aliases currently in place for legacy build tasks
 
 
-## Credit
+# Credit
 
 Thanks to [Work & Co](https://github.com/workco/marvin) for the starting point for this project. Workco's starter project gave the basic structure and approach for this starter kit
 
