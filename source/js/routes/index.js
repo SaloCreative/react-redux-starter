@@ -13,6 +13,7 @@ import WHOOPS from './whoops';
 // Helper route codes
 export const routeCodes = {
   HOME: '/:language',
+  ABOUT: '/:language/about',
   WHOOPS: '/:language/whoops',
   FOUROHFOUR: '/:language/404'
 };
@@ -29,6 +30,10 @@ export const routerConf = [
         component: WHOOPS
       },
       { path: routeCodes.FOUROHFOUR,
+        exact: true,
+        component: NotFound
+      },
+      { path: routeCodes.ABOUT,
         exact: true,
         component: NotFound
       }
