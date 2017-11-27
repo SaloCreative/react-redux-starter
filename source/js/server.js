@@ -36,12 +36,12 @@ app.use((req, res, next) => {
   // Perform pre-fetches
   const branch = matchRoutes(routerConf, req.url);
   let locale = req.language;
-  let country; // We need this to ensure the request matches on language
+  let currentMatch; // We need this to pass back to ensure we have any params
   branch.map(({ match }) => {
     if (match && match.params && Object.keys(match.params).length > 0) {
       if (match.params.language && CONFIG.languages.indexOf(match.params.language) !== -1) {
         locale = match.params.language;
-        country = match.params.language;
+        currentMatch = match.params.language;
       }
     }
   });
@@ -49,8 +49,8 @@ app.use((req, res, next) => {
     if (route.component && route.component.getInitialProps && route.path !== '*') {
       const getInitialProps = route.component.getInitialProps;
       const authToken = getToken(req);
-      if (getInitialProps instanceof Function && country) {
-        return getInitialProps(store, country, authToken);
+      if (getInitialProps instanceof Function && currentMatch) {
+        return getInitialProps(store, currentMatch, authToken);
       }
     }
     return Promise.resolve(null);
