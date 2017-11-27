@@ -1,6 +1,8 @@
 {
   "HOME": "Zuhause",
-  "ABOUT": "About",
-  "CONTACT": "Contact",
-  "404": "404 Error"
+  "ABOUT": "Über ",
+  "CONTACT": "Kontakt",
+  "404": "404 Fehler",
+  "ERROR_TITLE": "Seite nicht gefunden | 404 Fehler",
+  "ERROR_TEXT": "Leider konnten wir die gesuchte Seite nicht finden. Es existiert möglicherweise nicht oder wurde verschoben."
 }

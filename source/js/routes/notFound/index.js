@@ -16,9 +16,8 @@ class NotFound extends Component {
       </Helmet>,
       <div key='page' className='error-message'>
         <div className='error-message__container'>
-          <a onClick={ () => history.go(-2) } role='button' tabIndex='-1'>Back</a>
-          <h2 className='error-message__title'>{t('ERROR_TITLE')}</h2>
-          <p className='error-message__text'>{t('ERROR_TEXT')}</p>
+          <h2 className='error-message__title'>{ t('ERROR_TITLE') }</h2>
+          <p className='error-message__text'>{ t('ERROR_TEXT') }</p>
         </div>
       </div>
     ]);

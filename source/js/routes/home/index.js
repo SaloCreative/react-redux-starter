@@ -22,10 +22,10 @@ class Home extends Component {
   
   componentDidMount() {
     if (!this.loadedPost()) {
-      // this.props.testFetch();
+      this.props.testFetch();
     }
     if (!this.loadedUsers()) {
-      // this.props.usersFetch();
+      this.props.usersFetch();
     }
   }
 
@@ -37,40 +37,6 @@ class Home extends Component {
   loadedUsers() {
     const { users } = this.props;
     return !users.fetching && !users.error && users.data.length;
-  }
-
-  loadedPhotos() {
-    const { photos } = this.props;
-    return !photos.fetching && !photos.error && photos.data.length;
-  }
-
-  renderPhotos() {
-    const { photos } = this.props;
-    if (this.loadedPhotos()) {
-      return (
-        <table width='100%'>
-          <thead>
-            <tr>
-              <th>id</th>
-              <th>title</th>
-              <th>url</th>
-            </tr>
-          </thead>
-          <tbody>
-            { photos.data.map((photo) => {
-              return (
-                <tr key={ photo.id }>
-                  <td>{ photo.id }</td>
-                  <td>{ photo.title }</td>
-                  <td>{ photo.url }</td>
-                </tr>
-              );
-            }) }
-          </tbody>
-        </table>
-      );
-    }
-    return <p>Fetching</p>;
   }
 
   renderContent() {
@@ -120,10 +86,9 @@ class Home extends Component {
         <title>{ t('HOME') }</title>
       </Helmet>,
       <div key='page'>
-        { t('HOME') }
+        <h1>{ t('HOME') }</h1>
         { this.renderContent() }
         { this.renderUsers() }
-        { this.renderPhotos() }
       </div>
     ]);
   }
