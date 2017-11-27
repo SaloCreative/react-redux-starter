@@ -1,5 +1,6 @@
 # Contents
 
+* [Introduction](#introduction)
 * [Setup](#setup)
 	* [Development](#development) 
 	* [Build](#build)
@@ -29,20 +30,6 @@ The main features are:
 * Universal rendering
 * Server side fetches
 * Multi-lingual and translatable
-
-# Contents
-
-* [Setup](#setup)
-	* [Development](#development) 
-	* [Build](#build)
-	* [npm tasks](#all-npm-tasks)
-* [Server side fetching](#server-side-fetching)
-	* [getInitialProps()](#getinitialprops)
-	* [componentDidMount()](#componentdidmount)
-* [Internationalisation](#internationalisation)
-* [Todo](#todo)
-* [Credit](#credit)
-	* [Contributors](#contributors)
 
 # Setup
 
