@@ -157,6 +157,7 @@ Implemented but to document...
 
 - [ ] Document internationalisation
 - [ ] Add a language switcher
+- [ ] Fix menu links for `de` site
 - [ ] Add example of language fetches
 - [ ] Add an about route
 - [ ] Implement an error boundary
