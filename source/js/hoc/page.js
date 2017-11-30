@@ -14,7 +14,7 @@ export default function Page(ComposedComponent) {
   class composedPage extends Component {
     componentWillMount() {
       const { match } = this.props;
-  
+      console.log(i18next.language);
       const languageChanged = match.params.language !== i18next.language;
       const languageWhitelist = CONFIG.languages;
       const languageInWhitelist = languageWhitelist.indexOf(match.params.language) !== -1;

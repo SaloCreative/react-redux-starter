@@ -15,8 +15,10 @@ i18n
     // have a common namespace used around the full app
     ns: ['common'],
     defaultNS: 'common',
-
-    debug: false,
+    debug: true,
+    detection: {
+      order: ['htmlTag', 'querystring', 'cookie', 'localStorage', 'navigator']
+    },
 
     cache: {
       enabled: true
@@ -36,6 +38,11 @@ i18n
         return value;
       }
     },
+
+    // react: {
+    //   bindI18n: false,
+    //   bindStore: false
+    // },
 
     backend: {
       // for all available options read the backend's repository readme file

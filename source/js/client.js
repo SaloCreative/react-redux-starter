@@ -32,7 +32,7 @@ if (localStorage) {
 const render = Component => {
   ReactDOM.hydrate(
     <AppContainer warnings={ false }>
-      <I18nextProvider i18n={ i18n }>
+      <I18nextProvider i18n={ i18n } initialI18nStore={ window.__i18n } initialLanguage={ window.__i18n.locale }>
         <Provider store={ store }>
           <Component />
         </Provider>
