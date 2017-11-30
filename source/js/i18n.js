@@ -6,7 +6,6 @@ import CONFIG from './config';
 
 i18n
   .use(XHR)
-  .use(Cache)
   .use(LanguageDetector)
   .init({
     fallbackLng: 'en',
@@ -15,7 +14,7 @@ i18n
     // have a common namespace used around the full app
     ns: ['common'],
     defaultNS: 'common',
-    debug: true,
+    debug: false,
     detection: {
       order: ['htmlTag', 'querystring', 'cookie', 'localStorage', 'navigator']
     },
@@ -38,11 +37,6 @@ i18n
         return value;
       }
     },
-
-    // react: {
-    //   bindI18n: false,
-    //   bindStore: false
-    // },
 
     backend: {
       // for all available options read the backend's repository readme file
