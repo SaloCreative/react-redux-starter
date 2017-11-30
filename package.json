@@ -113,6 +113,7 @@
     "redux": "^3.7.2",
     "redux-persist": "^4.8.3",
     "redux-thunk": "^2.0.1",
+    "serialize-javascript": "^1.4.0",
     "styled-components": "^2.2.3",
     "transit-immutable-js": "^0.7.0",
     "transit-js": "^0.8.846",
