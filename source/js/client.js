@@ -30,15 +30,19 @@ if (localStorage) {
 }
 
 function buildI18nStore() {
-  return { [window.__i18n.locale]: {
-    common: window.__i18n.resources
-  } };
+  if (window.__i18n) {
+    return {
+      [window.__i18n.locale]: {
+        common: window.__i18n.resources
+      }
+    };
+  }
 }
 
 const render = Component => {
   ReactDOM.hydrate(
     <AppContainer warnings={ false }>
-      <I18nextProvider i18n={ i18n } initialI18nStore={ buildI18nStore() } initialLanguage={ window.__i18n.locale }>
+      <I18nextProvider i18n={ i18n } initialI18nStore={ buildI18nStore() } initialLanguage={ window.__i18n ? window.__i18n.locale : '' }>
         <Provider store={ store }>
           <Component />
         </Provider>
