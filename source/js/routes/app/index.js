@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Helmet } from 'react-helmet';
+import { Alerts } from '@salocreative/react-redux-alerts';
 
 import Menu from '../../containers/menu';
 
@@ -15,12 +16,13 @@ class App extends Component {
   }
 
   render() {
-    const { match } = this.props;
+    const { match, systemAlerts } = this.props;
     return (
       <div className='App'>
         <Helmet titleTemplate='%s | Salo Creative' />
         <Menu match={ match } />
         <div className='Page'>
+          <Alerts alerts={ systemAlerts } />
           { Routes(this.props) }
         </div>
       </div>

@@ -7,12 +7,14 @@ import App from '../../routes/app';
 // ACTION CREATORS
 import * as testActions from '../../actions/test';
 import * as usersActions from '../../actions/users';
+import * as alertActions from '../../actions/alerts';
 
 // STATE MAP
 function mapStateToProps(state) {
   return {
     test: state.test,
-    users: state.users
+    users: state.users,
+    systemAlerts: state.systemAlerts
   };
 }
 
@@ -22,7 +24,8 @@ function mapDispatchToProps(dispatch) {
     Object.assign(
       {},
       testActions,
-      usersActions
+      usersActions,
+      alertActions
     ), dispatch);
 }
 

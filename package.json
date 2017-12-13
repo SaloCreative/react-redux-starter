@@ -73,7 +73,7 @@
   },
   "dependencies": {
     "@aftonbladet/redux-api-middleware": "^1.1.1",
-    "@salocreative/react-redux-alerts": "^1.4.2",
+    "@salocreative/react-redux-alerts": "^3.0.0",
     "babel-polyfill": "^6.16.0",
     "express": "^4.15.4",
     "history": "^4.7.2",

@@ -44,6 +44,16 @@ class Home extends Component {
     return !users.fetching && !users.error && users.data.length;
   }
 
+  addAlert() {
+    const { addAlert } = this.props;
+    const message = {
+      type: 'success',
+      message: 'My alert message was added',
+      time: 20
+    };
+    addAlert(message);
+  }
+
   renderContent() {
     const { test } = this.props;
     if (this.loadedPost()) {
@@ -92,6 +102,7 @@ class Home extends Component {
       </Helmet>,
       <div key='page'>
         <h1>{ t('HOME') }</h1>
+        <button onClick={ () => this.addAlert() }>Add an alert</button>
         { this.renderContent() }
         { this.renderUsers() }
       </div>
@@ -104,7 +115,8 @@ Home.propTypes = {
   testFetch: PropTypes.func.isRequired,
   usersFetch: PropTypes.func.isRequired,
   test: PropTypes.object.isRequired,
-  users: PropTypes.object.isRequired
+  users: PropTypes.object.isRequired,
+  addAlert: PropTypes.func.isRequired
 };
 
 export default translate(['common'])(Page(Home));
