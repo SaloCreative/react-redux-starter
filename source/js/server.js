@@ -56,6 +56,8 @@ app.use((req, res, next) => {
     return Promise.resolve(null);
   });
   // Handle locales
+  const resources = i18n.getResourceBundle(locale, 'common');
+  const i18nClient = { locale, resources };
   const i18nServer = i18n.cloneInstance();
   i18nServer.changeLanguage(locale);
   return Promise.all(promises).then(() => {
@@ -76,7 +78,7 @@ app.use((req, res, next) => {
     );
 
     const helmet = Helmet.renderStatic();
-    const serverHtml = getServerHtml(appHtml, dehydratedState, helmet, sheet);
+    const serverHtml = getServerHtml(appHtml, dehydratedState, helmet, sheet, i18nClient);
 
     // Context has url, which means `<Redirect>` was rendered somewhere
     if (context.url) {
