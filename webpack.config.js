@@ -14,6 +14,7 @@ const packageFile = require('./package.json');
 const DashboardPlugin = require('webpack-dashboard/plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const CircularDependencyPlugin = require('circular-dependency-plugin');
 
 // Default client app entry file
 const entry = [
@@ -21,6 +22,14 @@ const entry = [
 ];
 
 plugins.push(
+  new CircularDependencyPlugin({
+    // exclude detection of files based on a RegExp
+    exclude: /a\.js|node_modules/,
+    // add errors to webpack instead of warnings
+    failOnError: false,
+    // set the current working directory for displaying module paths
+    cwd: process.cwd()
+  }),
   // Creates vendor chunk from modules coming from node_modules folder
   new webpack.optimize.CommonsChunkPlugin({
     name: 'vendor',

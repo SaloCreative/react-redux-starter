@@ -75,6 +75,7 @@
     "@aftonbladet/redux-api-middleware": "^1.1.1",
     "@salocreative/react-redux-alerts": "^3.0.0",
     "babel-polyfill": "^6.16.0",
+    "circular-dependency-plugin": "^4.4.0",
     "express": "^4.15.4",
     "history": "^4.7.2",
     "hoist-non-react-statics": "^2.3.1",
