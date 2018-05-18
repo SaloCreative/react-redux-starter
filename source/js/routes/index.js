@@ -1,67 +1,52 @@
 import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 
-import APP from './app';
+// COMPONENTS
+import Home from '../pages/home';
+import NotFound from '../pages/notFound';
+import Whoops from '../pages/whoops';
 
-// Home
-import HOME from './home';
+// ROUTES
+import { HOME, ABOUT, WHOOPS, FOUROHFOUR } from '../config/pages';
 
-// Misc Routes
-import NotFound from './notFound';
-import WHOOPS from './whoops';
-
-// Helper route codes
-export const routeCodes = {
-  HOME: '/:language',
-  ABOUT: '/:language/about',
-  WHOOPS: '/:language/whoops',
-  FOUROHFOUR: '/:language/404'
-};
-
-export const routerConf = [
-  { component: APP,
-    routes: [
-      { path: routeCodes.HOME,
-        exact: true,
-        component: HOME
-      },
-      { path: routeCodes.WHOOPS,
-        exact: true,
-        component: WHOOPS
-      },
-      { path: routeCodes.FOUROHFOUR,
-        exact: true,
-        component: NotFound
-      },
-      { path: routeCodes.ABOUT,
-        exact: true,
-        component: NotFound
-      }
-    ]
+export const routesConfig = [
+  {
+    exact: true,
+    component: Home,
+    ...HOME
+  },
+  {
+    exact: true,
+    component: Whoops,
+    ...WHOOPS
+  },
+  {
+    exact: true,
+    component: NotFound,
+    ...FOUROHFOUR
+  },
+  {
+    exact: true,
+    component: NotFound,
+    ...ABOUT
   }
 ];
 
-// Render routes function
-function renderRoutes(routes, props) {
-  return (routes.map(route => {
-    return (
-      <Route
-        key={ route.path }
-        exact={ route.exact }
-        path={ route.path }
-        render={ (routeProps) => <route.component { ...props } match={ routeProps.match } /> }
-      />
-    );
-  }));
-}
-
 // Route Component
-export default function Routes(props) {
-  const routes = renderRoutes(routerConf[0].routes, props);
+export default function renderRoutes(props) {
   return (
     <Switch>
       <Redirect exact path='/' to='/en' />
-      { routes }
+      { routesConfig.map(route => {
+        return (
+          <Route
+            key={ route.path }
+            exact={ route.exact }
+            path={ route.path }
+            render={ (routeProps) => <route.component { ...props } match={ routeProps.match } /> }
+          />
+        );
+      }) }
     </Switch>
   );
 }

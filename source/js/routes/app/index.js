@@ -5,7 +5,7 @@ import { Alerts } from '@salocreative/react-redux-alerts';
 import Menu from '../../containers/menu';
 
 // ROUTES
-import Routes from '../index';
+import renderRoutes from '../index';
 
 class App extends Component {
   componentDidUpdate(prevProps) {
@@ -23,7 +23,7 @@ class App extends Component {
         <Menu match={ match } />
         <div className='Page'>
           <Alerts alerts={ systemAlerts } />
-          { Routes(this.props) }
+          { renderRoutes(this.props) }
         </div>
       </div>
     );

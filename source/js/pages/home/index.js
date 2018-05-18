@@ -2,11 +2,14 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Helmet } from 'react-helmet';
 import { translate } from 'react-i18next';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
 // HOC
 import Page from '../../hoc/page';
-import { testFetch } from '../../actions/test';
-import { usersFetch } from '../../actions/users';
+import * as testActions from '../../actions/test';
+import * as usersActions from '../../actions/users';
+import * as alertActions from '../../actions/alerts';
 
 // COMPONENTS
 
@@ -20,8 +23,8 @@ class Home extends Component {
    */
   static getInitialProps(store, match, token) {
     return Promise.all([
-      store.dispatch(testFetch()),
-      store.dispatch(usersFetch())
+      store.dispatch(testActions.testFetch()),
+      store.dispatch(usersActions.usersFetch())
     ]);
   }
   
@@ -119,4 +122,23 @@ Home.propTypes = {
   addAlert: PropTypes.func.isRequired
 };
 
-export default translate(['common'])(Page(Home));
+function mapStateToProps(state) {
+  return {
+    test: state.test,
+    users: state.users,
+    systemAlerts: state.systemAlerts
+  };
+}
+
+// ACTION MAP
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators(
+    Object.assign(
+      {},
+      testActions,
+      usersActions,
+      alertActions
+    ), dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(translate(['common'])(Page(Home)));

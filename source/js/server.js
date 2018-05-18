@@ -13,9 +13,12 @@ import i18n from './i18n.server'; // initialised i18next instances
 import configureStore from './config/store';
 import getServerHtml from './config/server-html';
 import { getToken } from './helpers/server';
-import Server from './routes/app/server';
-import { routerConf } from './routes';
+import { routesConfig } from './routes';
 import CONFIG from './config';
+
+// COMPONENTS
+import Server from './routes/app/server';
+import App from './routes/app';
 
 // Load SCSS
 import '../scss/app.scss';
@@ -29,12 +32,12 @@ app.use(i18nMiddleware.handle(i18n));
 
 app.use((req, res, next) => {
   if (req.path.includes('/client/locales')) {
-    next();
+    return next();
   }
   // Creates empty store for each request
   const store = configureStore();
   // Perform pre-fetches
-  const branch = matchRoutes(routerConf, req.url);
+  const branch = matchRoutes([{ app: App, routes: routesConfig }], req.url);
   let locale = req.language;
   let currentMatch; // We need this to pass back to ensure we have any params
   branch.map(({ match }) => {
@@ -59,36 +62,35 @@ app.use((req, res, next) => {
   const resources = i18n.getResourceBundle(locale, 'common');
   const i18nClient = { locale, resources };
   const i18nServer = i18n.cloneInstance();
-  i18nServer.changeLanguage(locale);
-  return Promise.all(promises).then(() => {
+  i18nServer.changeLanguage(locale, () => { // call back required as change language is asyncronous
+    return Promise.all(promises).then(() => {
     // Dehydrates the state
-    const dehydratedState = JSON.stringify(store.getState());
+      const dehydratedState = JSON.stringify(store.getState());
 
-    // Context is passed to the StaticRouter and it will attach data to it directly
-    const context = {};
-    const sheet = new ServerStyleSheet();
-    const appHtml = ReactDOMServer.renderToString(
-      <I18nextProvider i18n={ i18nServer }>
-        <Provider store={ store }>
-          <StyleSheetManager sheet={ sheet.instance }>
-            <Server location={ req.url } context={ context } />
-          </StyleSheetManager>
-        </Provider>
-      </I18nextProvider>
-    );
+      // Context is passed to the StaticRouter and it will attach data to it directly
+      const context = {};
+      const sheet = new ServerStyleSheet();
+      const appHtml = ReactDOMServer.renderToString(
+        <I18nextProvider i18n={ i18nServer }>
+          <Provider store={ store }>
+            <StyleSheetManager sheet={ sheet.instance }>
+              <Server location={ req.url } context={ context } />
+            </StyleSheetManager>
+          </Provider>
+        </I18nextProvider>
+      );
 
-    const helmet = Helmet.renderStatic();
-    const serverHtml = getServerHtml(appHtml, dehydratedState, helmet, sheet, i18nClient);
+      const helmet = Helmet.renderStatic();
+      const serverHtml = getServerHtml(appHtml, dehydratedState, helmet, sheet, i18nClient);
 
-    // Context has url, which means `<Redirect>` was rendered somewhere
-    if (context.url) {
-      res.redirect(301, context.url);
-    } else {
-    // We're good, send the response
-      res.status(context.status || 200).send(serverHtml);
-    }
+      // Context has url, which means `<Redirect>` was rendered somewhere
+      if (context.url) {
+        return res.redirect(301, context.url);
+      }
+      // We're good, send the response
+      return res.status(context.status || 200).send(serverHtml);
+    });
   });
-
   // TODO how to handle 50x errors?
 });
 
