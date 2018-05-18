@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { StaticRouter, Route } from 'react-router-dom';
-import AppContainer from '../../containers/root/appContainer';
+import AppContainer from './container';
 
 const Server = ({ location, context }) => (
   
@@ -11,8 +11,8 @@ const Server = ({ location, context }) => (
 );
 
 Server.propTypes = {
-  location: PropTypes.string,
-  context: PropTypes.object
+  location: PropTypes.string.isRequired,
+  context: PropTypes.object.isRequired
 };
 
 export default Server;

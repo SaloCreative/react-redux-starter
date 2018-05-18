@@ -13,10 +13,12 @@ import i18n from './i18n.server'; // initialised i18next instances
 import configureStore from './config/store';
 import getServerHtml from './config/server-html';
 import { getToken } from './helpers/server';
-import Server from './routes/app/server';
-import { routerConf } from './routes';
 import { routesConfig } from './routes';
 import CONFIG from './config';
+
+// COMPONENTS
+import Server from './routes/app/server';
+import App from './routes/app';
 
 // Load SCSS
 import '../scss/app.scss';
