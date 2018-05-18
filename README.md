@@ -151,17 +151,37 @@ class MyClass extends Component {
 
 # Internationalisation
 
-Implemented but to document...
+Internationalisation is handled by [i18next](https://react.i18next.com/). There is a locales folder where each language is a folder within it, e.g.
+
+```
+locales
+├── en
+│   └── common.json
+└── es
+    └── common.json
+```
+
+By default, it is configured to load the 'common' namespace which means it will look for common.json. It caches these files into local storage. common.json contains a list of keys and values:
+
+```
+{
+  "LOGGED_IN": "Logged in"
+}
+```
+
+Where `t('LOGGED_IN')` would output `Logged in` if the language is set to English. `t` is a prop that will be passed to your component when it is passed through the `translate` HOC (see components/dashboard-tiles/index.js for an example of this).
+
+The client and server configuration is separated as the files are loaded in differently between the two. Languages are only loaded if the language code is in the config/index.js array.
 
 # Todo
 
-- [ ] Document internationalisation
+- [x] Document internationalisation
 - [ ] Add a language switcher
 - [ ] Fix menu links for `de` site
 - [ ] Add example of language fetches
 - [ ] Add an about route
 - [ ] Implement an error boundary
-- [ ] Implement `@salocreative/react-redux-alerts example`
+- [x] Implement `@salocreative/react-redux-alerts example`
 - [ ] Implement Loading wrapper
 - [ ] Document actions approach
 - [ ] Flesh out auth example
