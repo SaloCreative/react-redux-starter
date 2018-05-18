@@ -2,9 +2,9 @@ import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 
 // COMPONENTS
-import Home from './home';
-import NotFound from './notFound';
-import Whoops from './whoops';
+import Home from '../pages/home';
+import NotFound from '../pages/notFound';
+import Whoops from '../pages/whoops';
 
 // ROUTES
 import { HOME, ABOUT, WHOOPS, FOUROHFOUR } from '../config/pages';
