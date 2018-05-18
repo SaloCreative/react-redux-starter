@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
 import { translate } from 'react-i18next';
 
-import { routeCodes } from '../../routes';
+import { HOME, ABOUT, FOUROHFOUR } from '../../config/pages';
 import Logo from '../../../assets/img/logo-full.png';
 
 class Menu extends Component {
@@ -23,21 +23,21 @@ class Menu extends Component {
             activeClassName='Menu-link--active'
             className='Menu-link'
             exact
-            to={ routeCodes.HOME.replace(':language', language) }
+            to={ HOME.path.replace(':language', language) }
           >
             { t('HOME') }
           </NavLink>
           <NavLink
             activeClassName='Menu-link--active'
             className='Menu-link'
-            to={ routeCodes.ABOUT.replace(':language', language) }
+            to={ ABOUT.path.replace(':language', language) }
           >
             { t('ABOUT') }
           </NavLink>
           <NavLink
             activeClassName='Menu-link--active'
             className='Menu-link'
-            to={ routeCodes.FOUROHFOUR.replace(':language', language) }
+            to={ FOUROHFOUR.path.replace(':language', language) }
           >
             { t('404') }
           </NavLink>

@@ -15,6 +15,7 @@ import getServerHtml from './config/server-html';
 import { getToken } from './helpers/server';
 import Server from './routes/app/server';
 import { routerConf } from './routes';
+import { routesConfig } from './routes';
 import CONFIG from './config';
 
 // Load SCSS
@@ -29,12 +30,12 @@ app.use(i18nMiddleware.handle(i18n));
 
 app.use((req, res, next) => {
   if (req.path.includes('/client/locales')) {
-    next();
+    return next();
   }
   // Creates empty store for each request
   const store = configureStore();
   // Perform pre-fetches
-  const branch = matchRoutes(routerConf, req.url);
+  const branch = matchRoutes([{ app: App, routes: routesConfig }], req.url);
   let locale = req.language;
   let currentMatch; // We need this to pass back to ensure we have any params
   branch.map(({ match }) => {
@@ -82,11 +83,10 @@ app.use((req, res, next) => {
 
     // Context has url, which means `<Redirect>` was rendered somewhere
     if (context.url) {
-      res.redirect(301, context.url);
-    } else {
-    // We're good, send the response
-      res.status(context.status || 200).send(serverHtml);
+      return res.redirect(301, context.url);
     }
+    // We're good, send the response
+    return res.status(context.status || 200).send(serverHtml);
   });
 
   // TODO how to handle 50x errors?
